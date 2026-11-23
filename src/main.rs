@@ -1,8 +1,9 @@
 pub mod env;
-mod slow_read;
+mod reader;
 
 use clap::Parser;
 use std::io;
+use reader::*;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -26,5 +27,8 @@ fn main() {
         .expect("meow: Failed to understand path!")
         .to_string())
         .into_owned();
-    println!("{path}");
+    let (lr, success) = line_read(&path);
+    if success {
+        print!("{lr}");
+    }
 }
