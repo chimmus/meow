@@ -1,9 +1,11 @@
 pub mod env;
 mod reader;
+mod linef;
 
 use clap::Parser;
 use std::io;
 use reader::*;
+use linef::prefix;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -37,17 +39,17 @@ fn main() {
         print!("{lr}");
     }
     if success && args.n && !args.b {
-        let mut ln = 1;
+        let mut ln: u32 = 1;
         for line in lr.lines() {
-            println!("    {ln} {line}");
+            println!("{} {line}", prefix(ln));
             ln += 1;
         }
     }
     if success && args.b {
-        let mut ln = 1;
+        let mut ln: u32 = 1;
         for line in lr.lines() {
             if !line.is_empty() {
-                println!("    {ln} {line}");
+                println!("{} {line}", prefix(ln));
                 ln += 1;
                 continue;
             }
