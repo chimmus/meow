@@ -1,6 +1,8 @@
 use crate::env::{exist, is_dir};
 use std::fs;
 
+#[allow(unused)]
+
 pub fn line_line(path: &String, _ln: bool) -> (String, bool) {
     if !exist(&path) {
         return ("meow: path doesn't exist".to_string(), false);

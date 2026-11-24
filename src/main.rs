@@ -9,6 +9,8 @@ use reader::*;
 #[command(version, about, long_about = None)]
 
 struct Cli {
+    #[arg(short = 'n')]
+    n: bool,
     path: Option<String>,
 }
 
@@ -28,7 +30,14 @@ fn main() {
         .to_string())
         .into_owned();
     let (lr, success) = line_read(&path);
-    if success {
+    if success && !args.n {
         print!("{lr}");
+    }
+    if success && args.n {
+        let mut ln = 1;
+        for line in lr.lines() {
+            println!("    {ln} {line}");
+            ln += 1
+        }
     }
 }

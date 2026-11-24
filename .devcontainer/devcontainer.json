@@ -12,7 +12,7 @@
         "--secret", "git_name",
         "--secret", "git_email"
     ],
-    "postCreateCommand": "scripts/setup",
+    "postCreateCommand": ".devcontainer/setup",
     "remoteEnv": {
         "REMOTE_CONTAINERS": "true"
     }

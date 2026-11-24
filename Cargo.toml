@@ -9,7 +9,6 @@ readme = "README.md"
 autolib = false
 exclude = [
     ".devcontainer/**",
-    "scripts/**",
 ]
 
 
