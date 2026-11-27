@@ -13,11 +13,11 @@ pub fn readstdin(lf: LineNumberf) {
         io::stdin()
             .read_line(&mut read)
             .expect("meow: Failed to read line!");
-        if read.trim().is_empty() && lf == LineNumberf::Blank {
+        if read.trim_end_matches(&['\r', '\n'][..]).is_empty() && lf == LineNumberf::Blank {
            print!("\n");
            continue;
         }
-        print!("{}{}", if lf == LineNumberf::Number || ( lf == LineNumberf::Blank && !read.is_empty() )
+        print!("{}{}", if lf == LineNumberf::Number || lf == LineNumberf::Blank
             {prefix(ln)} 
             else {"".to_string()}, read); // Butchered this
         ln += 1;
