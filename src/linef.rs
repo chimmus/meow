@@ -12,6 +12,6 @@ pub fn prefix(ln: u32) -> String {
     for _ in 0..=(5-len) {
         whitespace.push(' ');
     }
-    format!("{whitespace}{ln}")
+    format!("{whitespace}{ln}  ")
 
 }
