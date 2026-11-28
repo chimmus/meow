@@ -7,7 +7,6 @@ mod readin;
 
 use clap::Parser;
 use reader::*;
-use linef::prefix;
 use priority::{line_number};
 use flag::LineNumberf;
 use readin::*;
@@ -21,6 +20,9 @@ struct Cli {
     #[arg(short = 'b', default_value_t = false)]
     b: bool,
 
+    #[arg(short = 'e', default_value_t = false)]
+    e: bool,
+
     #[arg(short = 'n', default_value_t = false)]
     n: bool,
     path: Option<String>,
@@ -31,9 +33,11 @@ fn main() {
 
     // Check the line number flags
     let number_type = line_number(args.n, args.b); 
+    
+    let suffix = linef::suffix(args.e);
 
     if !args.path.is_some() {
-        readstdin(number_type);
+        readstdin(number_type, suffix);
     }
     let path = shellexpand::tilde(&args.path
         .expect("meow: Failed to understand path!")
@@ -46,7 +50,7 @@ fn main() {
     if success && args.n && !args.b {
         let mut ln: u32 = 1;
         for line in lr.lines() {
-            println!("{}{line}", prefix(ln));
+            println!("{}{line}", linef::prefix(ln));
             ln += 1;
         }
     }
@@ -54,7 +58,7 @@ fn main() {
         let mut ln: u32 = 1;
         for line in lr.lines() {
             if !line.is_empty() {
-                println!("{}{line}", prefix(ln));
+                println!("{}{line}", linef::prefix(ln));
                 ln += 1;
                 continue;
             }

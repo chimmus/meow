@@ -15,3 +15,14 @@ pub fn prefix(ln: u32) -> String {
     format!("{whitespace}{ln}  ")
 
 }
+
+/* 
+    Performance may take a hit 
+    because we are still processing this everytime
+ */
+pub fn suffix(e: bool) -> String {
+    if e {
+        return "$".to_string();
+    }
+    return "".to_string();
+}
